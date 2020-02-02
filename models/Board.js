@@ -17,7 +17,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.TEXT()
         }
     }, { // option
-        timestamps: true, // 기본값이 true, 자동 시간저장?
+        timestamps: true, // 기본값이 true, 자동 시간저장, table에 createAt, updatedAt 필드 생성됨
         charset: 'utf8',
         tableName: 'boards'
     });

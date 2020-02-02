@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-require('dotenv').config();
+require('dotenv').config(); // dotenv 사용하기 위해 추가
 var app = require('../app');
 var debug = require('debug')('5-sequelize:server');
 var http = require('http');
@@ -26,7 +26,7 @@ var server = http.createServer(app);
  */
 
 server.listen(port, () => {
-  console.log("http://127.0.0.1:" + port);
+  console.log("http://127.0.0.1:" + port); // 포트 확인용 추가
 });
 server.on('error', onError);
 server.on('listening', onListening);

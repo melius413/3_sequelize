@@ -10,14 +10,18 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
-var {
+
+var { // 시퀄라이즈 실행
   sequelize
 } = require('./models');
-sequelize.sync({
-  force: true // true, 기존에 모델이 있으면 지우고 실행
-});
 
-var logDirectory = path.join(__dirname, 'log');
+// 아래 부분에서 실제 db가 생성됨
+// cli 명령 >> $ sequelize db:migrate // sequelize.sync 스크립트를 대체하므로 아래부분 주석가능
+// cli에서 하는것이 더 안전함
+// sequelize.sync({
+//   force: false // true, 기존에 모델이 있으면 지우고 실행
+// });
+
 /* 
 // method 1
 // https://www.npmjs.com/package/morgan
@@ -44,6 +48,8 @@ app.use(logger('combined', {
 // rotating-file-stream >> 사용방법 바뀜 rfs() -> rfs.createStream()
 // https://www.npmjs.com/package/rotating-file-stream
 // ensure log directory exists
+var logDirectory = path.join(__dirname, 'log');
+
 fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
 
 // create a rotating write stream 
@@ -66,7 +72,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 // 미들웨어 등록
-// app.use(logger('dev')); <-  해당부분 콘솔 출력에서 파일저장으로 대체... 
+// app.use(logger('dev')); <-  해당부분 콘솔 출력 => 파일저장으로 대체... 
 app.use(express.json()); // json 형태 파싱
 app.use(express.urlencoded({
   extended: false
