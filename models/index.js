@@ -20,7 +20,7 @@ if (config.use_env_variable) {
 // .filter와 forEach는 자바스크립트 Array 객체의 메소드
 // Array.forEach((v, i, arr) => {}), forEach는 비동기 매소드
 
-// models안에 있는 
+// models안에 있는 모든 js를 가져오는 과정
 fs
   .readdirSync(__dirname)
   .filter(file => {
@@ -31,6 +31,8 @@ fs
     db[model.name] = model;
   });
 
+// Object.keys(db) ... 키추출
+// 파일이름을 모델이름으로 등록하는 과정
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);

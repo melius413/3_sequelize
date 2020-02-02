@@ -10,9 +10,14 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+var {
+  sequelize
+} = require('./models');
+sequelize.sync({
+  force: true // true, 기존에 모델이 있으면 지우고 실행
+});
 
 var logDirectory = path.join(__dirname, 'log');
-
 /* 
 // method 1
 // https://www.npmjs.com/package/morgan
