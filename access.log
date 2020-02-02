@@ -1,0 +1,3 @@
+::1 - - [02/Feb/2020:01:53:46 +0000] "GET / HTTP/1.1" 200 170 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36"
+::1 - - [02/Feb/2020:01:53:46 +0000] "GET /stylesheets/style.css HTTP/1.1" 200 111 "http://localhost:3001/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36"
+::1 - - [02/Feb/2020:01:53:46 +0000] "GET /favicon.ico HTTP/1.1" 404 1342 "http://localhost:3001/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36"
