@@ -1,0 +1,16 @@
+extends layout.pug
+block content
+  table.table.table-bordered
+    thead.thead-dark
+      tr
+        th 번호
+        th 제목
+        th 작성자
+        th 작성일
+    tbody
+      each list in lists
+        tr
+          td= list.id
+          td= list.title
+          td= list.writer
+          td= list.createdAt

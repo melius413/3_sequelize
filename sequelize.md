@@ -64,3 +64,13 @@ const{Board} = require("./models");
 //const{Board} = require("./models/index"); // 같은 의미
 //const{Board} = require("./models/index.js");
 ~~~
+
+## sequelize cli 명령
+~~~bash
+# model 생성
+$ sequelize model:generate --name User2 --attributes firstName:string,lastName:string,email:string
+$ sequelize model:generate --name Sample --attributes title:string,comment:string,writer:string,rnum:integer
+
+# db에 생성
+sequelize db:migrate
+~~~

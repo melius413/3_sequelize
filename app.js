@@ -5,9 +5,11 @@ var fs = require('fs');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var rfs = require('rotating-file-stream');
+var methodOverride = require('method-override'); // 폼전송에 필요하다. ajax에서는 필요없음
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var boardRouter = require('./routes/board');
 
 var app = express();
 
@@ -80,8 +82,24 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+// method-override
+// custom logic
+// https://www.npmjs.com/package/method-override
+// 폼전송에 필요하다. ajax에서는 필요없음
+app.use(methodOverride(function (req, res) {
+  if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+    // look in urlencoded POST bodies and delete it
+    var method = req.body._method
+    delete req.body._method
+    return method
+  }
+}));
+
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/board', boardRouter);
 
 // app.use(url, function(req, res, next) {...}) ... 미들웨어 등록
 // 등록된 순서대로 req가 지나감
