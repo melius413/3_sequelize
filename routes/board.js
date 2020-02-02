@@ -6,14 +6,59 @@ var {
 } = require('../models'); // 해당 모델 사용시
 
 /* GET users listing. */
+/*
+// Object.getPrototypeOf(data).constructor.name
+router.get('/', async (req, res, next) => {
+
+  // const data1 = await Board.findAll({ order: [["id", "desc"]] });
+  // console.log(Object.getPrototypeOf(data1).constructor.name); // Array
+  // console.log(Object.getPrototypeOf(data1[0]).constructor.name); // Board
+
+  // console.log(data1[0].createdAt); // data[0].__proto__은 속성을 바로 접근하는 기능이 있음, 출력만 가능, 가공은 안됨
+  // console.log(data1[0].dataValues.createdAt);
+
+  // method 1
+  // const data2 = [];
+  // data1.forEach(v => { data2.push(v.dataValues); });
+  // const data = data2.map(v => {
+  //   v.createdAt = dateTime({ date: v.createdAt });
+  //   return v;
+  // });
+
+  // method 2
+  // const data = data1.map(v => {
+  //   v.dataValues.createdAt = dateTime({ date: v.createdAt });
+  //   return v;
+  // });
+
+  // method 3
+  const data = await Board.findAll({
+    order: [
+      ["id", "desc"]
+    ],
+    raw: true // 해당 옵션이 없으면, 순수 obj 출력이 아님. 데이터 가공 힘듦
+  });
+
+  for (var v of data) { // es6
+    v.createdAt = dateTime({
+      date: v.createdAt
+    });
+  }
+
+  // res.json(data);
+  res.render('board-list.pug', {
+    data
+  });
+});
+*/
 
 router.get(['/', '/:id'], async (req, res, next) => {
-  let data;
   try {
+    let data;
     if (req.params.id) {
       if (req.params.id === "write") {
         res.render('board-write.pug');
-      } else {
+      } else { // if (req.params.id === "write")
         data = await Board.findOne({
           where: {
             id: req.params.id
@@ -22,21 +67,13 @@ router.get(['/', '/:id'], async (req, res, next) => {
         });
         res.json(data);
       }
-    } else {
+    } else { // if (req.params.id)
       data = await Board.findAll({
         order: [
           ["id", "desc"]
         ],
-        raw: true
+        raw: true // 해당 옵션이 없으면, 순수 obj 출력이 아님. 데이터 가공 힘듦
       });
-
-      // const data2 = data;
-      // const data2 = data.map((v) => {
-      //   v.createdAt = dateTime({
-      //     date: v.createdAt
-      //   });
-      //   return v;
-      // });
 
       for (var v of data) { // es6
         v.createdAt = dateTime({
@@ -44,9 +81,9 @@ router.get(['/', '/:id'], async (req, res, next) => {
         });
       }
 
-      const data2 = data;
+      // res.json(data);
       res.render('board-list.pug', {
-        data2
+        data
       });
     }
   } catch (err) {
@@ -83,6 +120,16 @@ router.post('/wr', async (req, res, next) => {
 router.put('/update', (req, res) => {
 
 });
+
+// test용
+// router.get('/wr_test', async (req, res, next) => {
+//   const data = await Board.create({
+//     title: "test",
+//     comment: "테스트 글",
+//     writer: "작성자"
+//   });
+//   res.json(data);
+// });
 
 
 module.exports = router;
