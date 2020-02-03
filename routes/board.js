@@ -107,19 +107,22 @@ router.get('/delete/:id', async (req, res) => {
   res.redirect('/board');
 });
 
+
+// method 1 promise: async-await
 router.post('/wr', async (req, res, next) => {
   const data = await Board.create({
     title: req.body.title,
     comment: req.body.comment,
     writer: req.body.writer
   });
+  // res.json(data);
   res.redirect("/board");
 });
 
+// method 2 promise: then catch
 // method-overrid
-router.put('/update', async (req, res) => {
-  console.log(req.body);
-  const data = await Board.update({
+router.put('/update', (req, res) => {
+  const promise = Board.update({
     title: req.body.title,
     comment: req.body.comment,
     writer: req.body.writer
@@ -128,18 +131,13 @@ router.put('/update', async (req, res) => {
       id: req.body.id
     }
   });
-  res.redirect("/board");
-});
 
-// test용
-// router.get('/wr_test', async (req, res, next) => {
-//   const data = await Board.create({
-//     title: "test",
-//     comment: "테스트 글",
-//     writer: "작성자"
-//   });
-//   res.json(data);
-// });
+  promise.then(() => {
+    res.redirect("/board");
+  }).catch((err) => {
+    console.error(err);
+  });
+});
 
 
 module.exports = router;
