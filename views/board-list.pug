@@ -1,14 +1,15 @@
 extends layout.pug
 block content
   .p-2.border
-    form(action="/board/update", method="post")
+    form(action="/board/update" method="post")
       input(type="hidden" name="_method" value="put")
       input(type="hidden" name="id" id="id")
-      .p-2.form-inline
-        input.form-control.mr-2(type="text" id="title" name="title")
-        input.form-control.mr-2(type="text" id="writer" name="writer")
-        input.form-control.mr-2(type="text" id="comment" name="comment")
-        button.btn.btn-primary 수정
+      //- .p-2.form-inline
+      .p-2
+        input.form-control.m-2(type="text" id="title" name="title" placeholder="title")
+        input.form-control.m-2(type="text" id="writer" name="writer" placeholder="writer")
+        textarea.form-control.m-2(id="comment" name="comment" placeholder="comment")
+        button.btn.btn-primary.m-2 수정
   table.table.table-bordered
     thead.thead-dark
       tr
@@ -25,5 +26,5 @@ block content
           td= v.writer
           td= v.createdAt
           td
-            button.btn.btn-sm.btn-danger(onclick=`location.href='/board/delete/${v.id}';`) 삭제
-            button.btn.btn-sm.btn-success(onclick=`onChg(${v.id})`) 수정
+            button.btn.btn-sm.btn-danger.m-1(onclick=`location.href='/board/delete/${v.id}';`) 삭제
+            button.btn.btn-sm.btn-success.m-1(onclick=`onChg(${v.id})`) 보기

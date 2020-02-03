@@ -117,8 +117,18 @@ router.post('/wr', async (req, res, next) => {
 });
 
 // method-overrid
-router.put('/update', (req, res) => {
-
+router.put('/update', async (req, res) => {
+  console.log(req.body);
+  const data = await Board.update({
+    title: req.body.title,
+    comment: req.body.comment,
+    writer: req.body.writer
+  }, {
+    where: {
+      id: req.body.id
+    }
+  });
+  res.redirect("/board");
 });
 
 // test용

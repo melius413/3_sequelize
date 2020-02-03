@@ -7,11 +7,15 @@ var {
 } = require("../models"); // 추가함
 
 /* GET home page. */
+// router.get('/', function (req, res, next) {
+//   console.log(Board); // Board 객체 출력됨
+//   res.render('index', {
+//     title: 'Express'
+//   });
+// });
+
 router.get('/', function (req, res, next) {
-  console.log(Board); // Board 객체 출력됨
-  res.render('index', {
-    title: 'Express'
-  });
+  res.redirect('/board');
 });
 
 module.exports = router;
