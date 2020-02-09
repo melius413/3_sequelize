@@ -74,3 +74,25 @@ $ sequelize model:generate --name Sample --attributes title:string,comment:strin
 # db에 생성
 sequelize db:migrate
 ~~~
+
+## pm2 설치
+~~~bash
+npm install pm2 -g
+pm2 start app.js
+
+# 3개 CPU에서 구동
+pm2 start app.js -i 3
+
+# 모든 CPU에서 구동
+pm2 start app.js -i 0  
+pm2 kill
+
+# list 보기
+pm2 list
+
+# log 보기
+pm2 log
+
+pm2 start ./bin/www -i 0 
+pm2 show 0 # 0번 상황 확인
+~~~

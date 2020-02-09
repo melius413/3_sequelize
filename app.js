@@ -74,7 +74,7 @@ app.use(logger('combined', {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-// 미들웨어 등록
+// 미들웨어 등록 (미들웨어 등록순서가 중요하다. 순서대로 req 객체가 통과한다.)
 // app.use(logger('dev')); <-  해당부분 콘솔 출력 => 파일저장으로 대체... 
 app.use(express.json()); // json 형태 파싱
 app.use(express.urlencoded({
@@ -88,6 +88,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // custom logic
 // https://www.npmjs.com/package/method-override
 // 폼전송에 필요하다. ajax에서는 필요없음
+// app.use(express.json()) 이후에 등록해야한다.
+// app.use(express.urlencoded({extended: false})) 이후에 등록해야한다.
 app.use(methodOverride(function (req, res) {
   if (req.body && typeof req.body === 'object' && '_method' in req.body) {
     // look in urlencoded POST bodies and delete it
@@ -97,7 +99,7 @@ app.use(methodOverride(function (req, res) {
   }
 }));
 
-
+// 라우터의 순서도 중요하다.
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/board', boardRouter);
