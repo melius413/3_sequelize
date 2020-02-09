@@ -12,6 +12,7 @@ var usersRouter = require('./routes/users');
 var boardRouter = require('./routes/board');
 
 var app = express();
+app.locals.pretty = true;
 
 var { // 시퀄라이즈 실행
   sequelize
@@ -20,9 +21,9 @@ var { // 시퀄라이즈 실행
 // 아래 부분에서 실제 db가 생성됨
 // cli 명령 >> $ sequelize db:migrate // sequelize.sync 스크립트를 대체하므로 아래부분 주석가능
 // cli에서 하는것이 더 안전함
-// sequelize.sync({
-//   force: false // true, 기존에 모델이 있으면 지우고 실행
-// });
+sequelize.sync({
+  force: false // true, 기존에 모델이 있으면 지우고 실행
+});
 
 /* 
 // method 1

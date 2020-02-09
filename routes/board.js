@@ -122,6 +122,8 @@ router.post('/wr', async (req, res, next) => {
 // method 2 promise: then catch
 // method-overrid
 router.put('/update', (req, res) => {
+  // method 1 promise
+  // Board.update().then().then().catch()
   const promise = Board.update({
     title: req.body.title,
     comment: req.body.comment,
@@ -132,12 +134,30 @@ router.put('/update', (req, res) => {
     }
   });
 
-  promise.then(() => {
-    res.redirect("/board");
+  promise.then((data) => {
+    if(data[0]) res.redirect("/board");
   }).catch((err) => {
     console.error(err);
   });
-});
 
+  /*
+  // method 2 async-await: need to be async function 
+  try {
+    const data = await Board.update({
+      title: req.body.title,
+      comment: req.body.comment,
+      writer: req.body.writer
+    }, {
+      where: {
+        id: req.body.id
+      }
+    });
+    res.json(data);
+    // if(data[0]) res.redirect("/board");
+  } catch (err) {
+    next(err);
+  }
+  */
+});
 
 module.exports = router;

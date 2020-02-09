@@ -39,6 +39,11 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
+// 각모델 접근가능
+// 테이블 1:n 관계설정
+db.Member.hasMany(db.Post);
+db.Post.belongsTo(db.Member);
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
